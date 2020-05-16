@@ -12,26 +12,42 @@
               <span v-else> Run </span>
             </button>
             <language :options=languages :selected=selectedLang></language>
-
-            <button class="btn btn-sm btn-menu">
-            <router-link class="decoration-none" to="/" target="_blank" active-class="" exact-active-class="">
-              New <i class="fa fa-file-code-o" aria-hidden="true"></i>
-            </router-link>
-            </button>
-
             <button type="button" id="custInp" class="btn btn-sm btn-menu" @click="InOutBoxToggle()">
               Input <i class="fa fa-keyboard-o" aria-hidden="true"></i>
             </button>
-            <button type="button" id="save" class="btn btn-sm btn-menu" @click="saveToServer()">Save <i
-              class="fa fa-floppy-o" aria-hidden="true"></i></button>
-            <button type="button" id="download" class="btn btn-sm btn-menu" @click="showDownloadModal()">
-              Download
-              <i class="fa fa-download" aria-hidden="true"></i>
-            </button>
-            <input type="file" ref="fileUpload" style="display:none" @change="uploadCode">
-            <button type="button" id="uploadFile" class=" btn btn-sm btn-menu" @click="selectFile">
-              Upload <span class="fa fa-folder-open" aria-hidden="true"></span>
-            </button>
+
+            <div class="file-dropdown">
+              <button type="button" id="file-options" class="btn btn-sm btn-menu btn-dropdown">
+                File <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                <i class="fa fa-caret-down" aria-hidden="true"></i>
+              </button>
+              <ul class="file-dropdown-menu">
+                <li>
+                  <button class="btn btn-sm btn-menu">
+                    <router-link class="decoration-none" to="/" target="_blank" active-class="" exact-active-class="">
+                      New <i class="fa fa-file-code-o" aria-hidden="true"></i>
+                    </router-link>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" id="save" class="btn btn-sm btn-menu" @click="saveToServer()">
+                    Save <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                  </button>
+                </li>
+                <li>
+                  <input type="file" ref="fileUpload" style="display:none" @change="uploadCode">
+                  <button type="button" id="uploadFile" class=" btn btn-sm btn-menu" @click="selectFile">
+                    Upload <span class="fa fa-folder-open" aria-hidden="true"></span>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" id="download" class="btn btn-sm btn-menu" @click="showDownloadModal()">
+                    Download <i class="fa fa-download" aria-hidden="true"></i>
+                  </button>
+                </li>
+              </ul>
+            </div>
+
             <input type="file" id="upload" style="display:none;">
             <button type="button" id="settingButton" class="btn btn-sm btn-menu" @click="settingsToggle">
               Setting <span class="fa fa-cog"></span>
@@ -290,6 +306,26 @@
     background: #202020;
     color: #fff;
     border-color: #272727;
+  }
+
+  .file-dropdown {
+    overflow: hidden;
+  }
+
+  .file-dropdown:hover .btn-dropdown {
+    color: #fc4f4f !important;
+  }
+
+  .file-dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #202020;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 10;
+  }
+
+  .file-dropdown:hover .file-dropdown-menu {
+    display: block;
   }
 
   .logoMenu {

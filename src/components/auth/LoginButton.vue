@@ -1,20 +1,27 @@
 <template>
   <span v-if="userStore.isAuthenticated">
-    <a class="btn btn-sm btn-menu" target="_blank" href="https://account.codingblocks.com/users/me">
-      <i class="fa fa-user"></i>
-      {{userStore.currentUser.firstname}}
-    </a>
-    <router-link class="btn btn-sm btn-menu" tag="button" to="/profile">
-        <i class="fa fa-list"></i>
-        Saved Codes 
-    </router-link>
-      <button 
-        type="button" 
-        class="btn btn-sm btn-menu"
-        @click="logout"
-        >
-       Logout <span class="fas fa-sign-in-alt"></span>
-    </button>
+   <div class="btn-group" :class="{ open : isOpen}"  @click="open">
+      <button type="button" class="btn btn-sm btn-menu"
+          aria-haspopup="true" aria-expanded="false" @blur="close" >
+        <i class="fa fa-user"></i>
+        {{userStore.currentUser.firstname}} 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <router-link class="btn btn-sm btn-menu" tag="button" to="/profile">
+            <i class="fa fa-list" aria-hidden="true"></i>
+            Saved Codes 
+          </router-link>
+        </li>
+        <li>
+          <button type="button" class="btn btn-sm btn-menu" @click="logout">
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+            Logout
+          </button>
+        </li>
+      </ul>
+    </div>
   </span>
   <button id="panelLang" type="button" class="btn btn-sm btn-danger"
     @click="login"
@@ -29,6 +36,11 @@ import { mapState } from 'vuex'
 import { setToken } from '@/utils/api'
 
 export default {
+  data() {
+    return {
+      isOpen: false
+    }
+  },
   computed: mapState({
     userStore: 'user'
   }),
@@ -44,8 +56,28 @@ export default {
         text: 'Logged you out. You may still keep the fiddling with code and use the ide in anonymous mode.',
         type: 'success'
       })
+    },
+    open() {
+      this.isOpen = !this.isOpen 
+    },
+    close () {
+      setTimeout(() => { this.isOpen=false }, 250 )
     }
   }
   
 }
 </script>
+
+<style scoped>
+  .open > .dropdown-menu {
+    display: list-item !important;
+    background-color: #202020;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    font-size: 14px;
+    overflow: hidden;
+  }
+
+  .open > .dropdown-menu > li:hover {
+    cursor: pointer;
+  }
+</style>
