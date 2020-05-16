@@ -1,13 +1,18 @@
 <template>
   <span v-if="userStore.isAuthenticated">
-   <div class="btn-group" :class="{ open : isOpen}"  @click="open">
-      <button type="button" class="btn btn-sm btn-menu"
-          aria-haspopup="true" aria-expanded="false" @blur="close" >
+   <div class="btn-group" @mouseover="hover = true" @mouseleave="hover = false">
+      <button type="button" class="btn btn-sm btn-menu btn-dropdown">
         <i class="fa fa-user"></i>
         {{userStore.currentUser.firstname}} 
         <i class="fa fa-caret-down"></i>
       </button>
-      <ul class="dropdown-menu">
+      <ul v-if="hover" class="dropdown-menu">
+        <li>
+          <a class="btn btn-sm btn-menu" target="_blank" href="https://account.codingblocks.com/users/me">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            Profile
+          </a>
+        </li>
         <li>
           <router-link class="btn btn-sm btn-menu" tag="button" to="/profile">
             <i class="fa fa-list" aria-hidden="true"></i>
@@ -26,7 +31,7 @@
   <button id="panelLang" type="button" class="btn btn-sm btn-danger"
     @click="login"
     v-else >
-    Login <i class="fas fa-sign-in-alt"></i>
+    Login <i class="fa fa-sign-in"></i>
   </button>
   
 </template>
@@ -38,8 +43,8 @@ import { setToken } from '@/utils/api'
 export default {
   data() {
     return {
-      isOpen: false
-    }
+      hover: false,
+    };
   },
   computed: mapState({
     userStore: 'user'
@@ -56,12 +61,6 @@ export default {
         text: 'Logged you out. You may still keep the fiddling with code and use the ide in anonymous mode.',
         type: 'success'
       })
-    },
-    open() {
-      this.isOpen = !this.isOpen 
-    },
-    close () {
-      setTimeout(() => { this.isOpen=false }, 250 )
     }
   }
   
@@ -69,15 +68,14 @@ export default {
 </script>
 
 <style scoped>
-  .open > .dropdown-menu {
+  .dropdown-menu {
     display: list-item !important;
     background-color: #202020;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     font-size: 14px;
     overflow: hidden;
   }
-
-  .open > .dropdown-menu > li:hover {
-    cursor: pointer;
+  .btn-group:hover .btn-dropdown {
+    color: #fc4f4f !important;
   }
 </style>
