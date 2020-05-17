@@ -16,12 +16,12 @@
               Input <i class="fa fa-keyboard-o" aria-hidden="true"></i>
             </button>
 
-            <div class="btn-group file-dropdown" @mouseover="hover = true" @mouseleave="hover = false">
+            <div class="btn-group file-dropdown" @mouseover="fileHover = true" @mouseleave="fileHover = false">
               <button type="button" id="file-options" class="btn btn-sm btn-menu btn-dropdown">
                 File <i class="fa fa-file-text-o" aria-hidden="true"></i>
                 <i class="fa fa-caret-down" aria-hidden="true"></i>
               </button>
-              <ul v-if="hover" class="dropdown-menu">
+              <ul v-if="fileHover" class="dropdown-menu">
                 <li>
                   <button class="btn btn-sm btn-menu">
                     <router-link class="decoration-none" to="/" target="_blank" active-class="" exact-active-class="">
@@ -49,13 +49,26 @@
             </div>
 
             <input type="file" id="upload" style="display:none;">
-            <button type="button" id="settingButton" class="btn btn-sm btn-menu" @click="settingsToggle">
-              Setting <span class="fa fa-cog"></span>
-            </button>
+
+            <div class="btn-group view-dropdown" @mouseover="viewHover = true" @mouseleave="viewHover = false">
+              <button type="button" id="file-options" class="btn btn-sm btn-menu btn-dropdown">
+                View <i class="fa fa-caret-down" aria-hidden="true"></i>
+              </button>
+              <ul v-if="viewHover" class="dropdown-menu">
+                <li>
+                  <button type="button" id="settingButton" class="btn btn-sm btn-menu" @click="settingsToggle">
+                    Setting <span class="fa fa-cog"></span>
+                  </button>
+                </li>
+                <li>
+                  <button id="panelLang" type="button" class="btn btn-sm btn-menu" @click="showShortcutsModal()">
+                    Shortcuts <i class="fa fa-reply-all" aria-hidden="true"></i>
+                  </button>
+                </li>
+              </ul>
+            </div>
+
             <share></share>
-            <button id="panelLang" type="button" class="btn btn-sm btn-menu" @click="showShortcutsModal()">
-              Shortcuts <i class="fa fa-reply-all" aria-hidden="true"></i>
-            </button>
           </div>
           <div class="logoMenu">
             <login-button></login-button>
@@ -147,7 +160,8 @@
         loading: false,
         fileName: this.$store.state.fileName,
         showBanner: true,
-        hover: false,
+        fileHover: false,
+        viewHover: false
       }
     },
     computed: {
@@ -318,6 +332,10 @@
   }
 
   .file-dropdown:hover .btn-dropdown {
+    color: #fc4f4f !important;
+  }
+
+  .view-dropdown:hover .btn-dropdown {
     color: #fc4f4f !important;
   }
 
