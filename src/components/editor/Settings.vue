@@ -45,7 +45,7 @@
         },
         fontOptions: ['Lucida Console', 'Anonymous Pro', 'Courier', 'Droid Sans Mono', 'Inconsolata', 'Source Code Pro', 'Ubuntu Mono'],
         sizeOptions: Array(30).fill(0).map((el, ind) => 6 + (2 * ind)),
-        tabSizeOptions: Array(4).fill(0).map((el, ind) => 2 + (2 * ind))
+        tabSizeOptions: Array(3).fill(0).map((el, ind) => 2 + (2 * ind)).fill(8, 2)
       }
     },
     methods: {
