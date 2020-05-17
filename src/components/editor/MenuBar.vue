@@ -16,12 +16,12 @@
               Input <i class="fa fa-keyboard-o" aria-hidden="true"></i>
             </button>
 
-            <div class="file-dropdown">
+            <div class="btn-group file-dropdown" @mouseover="hover = true" @mouseleave="hover = false">
               <button type="button" id="file-options" class="btn btn-sm btn-menu btn-dropdown">
                 File <i class="fa fa-file-text-o" aria-hidden="true"></i>
                 <i class="fa fa-caret-down" aria-hidden="true"></i>
               </button>
-              <ul class="file-dropdown-menu">
+              <ul v-if="hover" class="dropdown-menu">
                 <li>
                   <button class="btn btn-sm btn-menu">
                     <router-link class="decoration-none" to="/" target="_blank" active-class="" exact-active-class="">
@@ -146,7 +146,8 @@
         fullscreen: false,
         loading: false,
         fileName: this.$store.state.fileName,
-        showBanner: true
+        showBanner: true,
+        hover: false,
       }
     },
     computed: {
@@ -308,24 +309,16 @@
     border-color: #272727;
   }
 
-  .file-dropdown {
+  .dropdown-menu {
+    display: list-item !important;
+    background-color: #202020;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    font-size: 14px;
     overflow: hidden;
   }
 
   .file-dropdown:hover .btn-dropdown {
     color: #fc4f4f !important;
-  }
-
-  .file-dropdown-menu {
-    display: none;
-    position: absolute;
-    background-color: #202020;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 10;
-  }
-
-  .file-dropdown:hover .file-dropdown-menu {
-    display: block;
   }
 
   .logoMenu {
