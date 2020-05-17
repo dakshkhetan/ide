@@ -67,24 +67,39 @@
     props: ['url'],
     methods: {
       getURL() {
+        if (window.location.href === 'https://ide.codingblocks.com/') {
+          this.$notify({
+            text: 'Please save the code first',
+            type: 'error'
+          });
+          return;
+        }
+
         this.showShareModal = true;
-        if (window.location.href !== this.longURL)
-          axios.post('https://cb.lk/api/v1/shorten', {
-            url: window.location.href,
-            code: '',
-            secret: ''
-          }).then((response) => {
-            this.longURL = window.location.href;
-            this.shortURL = 'https://cb.lk/' + response.data.shortcode;
-          })
 
-        // // only enablePairMode if not already pairing
-        // const state = this.$store.state
-        // if (!state.isPairing)
-        //   this.$store.commit('enablePairMode', {keepText: true})
+        if (window.location.href !== this.longURL) {
+          this.longURL = window.location.href;
+          this.shortURL = window.location.href;
 
-        // const middle = state.codeId ? '/s/' + state.codeId + '?ref=' : '/j/'
-        // this.shortURL = window.location.host + middle + state.firebase.ref
+          // axios.post('https://cb.lk/api/v1/shorten', {
+          //   url: window.location.href,
+          //   code: '',
+          //   secret: ''
+          // }).then((response) => {
+          //   this.longURL = window.location.href;
+          //   this.shortURL = 'https://cb.lk/' + response.data.shortcode;
+          // }).catch(e => {
+          //   console.log(e);
+          // });
+
+          // // only enablePairMode if not already pairing
+          // const state = this.$store.state
+          // if (!state.isPairing)
+          //   this.$store.commit('enablePairMode', {keepText: true})
+
+          // const middle = state.codeId ? '/s/' + state.codeId + '?ref=' : '/j/'
+          // this.shortURL = window.location.host + middle + state.firebase.ref
+        }
       },
       onCopy() {
         this.$notify({
