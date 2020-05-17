@@ -143,7 +143,7 @@
         </li>
         <li class="key-unit flex-space-between">
           <span class="key-span flex-center">Ctrl + S</span>
-          <span class="key-description">To save the code in windows</span>
+          <span class="key-description">To save the code in windows/linux</span>
         </li>
         <li class="key-unit flex-space-between">
           <span class="key-span flex-center">⌘ + S</span>
