@@ -1,5 +1,5 @@
 <template>
-  <div id="inoutbox" class="fsHide" :class="{ verticalPane : isVertical}" v-bind:style="{ fontSize: this.$store.state.fontSize + 'px' }" v-show="this.$store.state.showInOutBox">
+  <div id="inoutbox" class="fsHide" :class="{ verticalPane : this.$store.state.isVertical}" v-bind:style="{ fontSize: this.$store.state.fontSize + 'px' }" v-show="this.$store.state.showInOutBox">
     <div class="panel-input panel-default">
       <div class="panel-heading">
         <span>Input</span>
@@ -9,8 +9,8 @@
         <a v-on:click="onCopyInput" id="copy-input"> 
           <i class="fa fa-paperclip" />
         </a>
-        <button v-if="isVertical" type="button" id="toggleHorizontalPane" class="btn btn-sm btn-menu" @click="shiftInOutBox">
-          <i class="fa fa-th" aria-hidden="true"></i>
+        <button v-if="this.$store.state.isVertical" type="button" id="toggleHorizontalPane" class="btn btn-sm btn-menu" @click="shiftInOutBox">
+          <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
         </button>
       </div>
       <textarea class="textbox" id="test-input" rows="2" wrap="off"
@@ -27,8 +27,8 @@
         <a v-on:click="onCopyOutput" id="copy-output"> 
           <i class="fa fa-paperclip"/>
         </a>
-        <button v-if="!isVertical" type="button" id="toggleVerticalPane" class="btn btn-sm btn-menu" @click="shiftInOutBox">
-          <i class="fa fa-th" aria-hidden="true"></i>
+        <button v-if="!this.$store.state.isVertical" type="button" id="toggleVerticalPane" class="btn btn-sm btn-menu" @click="shiftInOutBox">
+          <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
         </button>
       </div>
       <pre id="output">{{this.$store.state.output}}</pre>
@@ -40,11 +40,11 @@
   import * as download from 'downloadjs'
   export default {
     name: 'inoutbox',
-    data() {
-      return {
-        isVertical: false
-      }
-    },
+    // data() {
+    //   return {
+    //     isVertical: false
+    //   }
+    // },
     mounted() {
       interact('#inoutbox')
         .resizable({
@@ -75,7 +75,7 @@
     },
     methods: {
       shiftInOutBox() {
-        this.isVertical = !this.isVertical
+        this.$store.commit('shiftInOutBox')
       },
       customInputChange(e) {
         this.$store.commit('changeCustomInput', e.target.value || e.target.result)
