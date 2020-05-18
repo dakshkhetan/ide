@@ -9,8 +9,22 @@
         <a v-on:click="onCopyInput" id="copy-input"> 
           <i class="fa fa-paperclip" />
         </a>
-        <button v-if="this.$store.state.isVertical" type="button" id="toggleHorizontalPane" class="btn btn-sm btn-menu" @click="shiftInOutBox">
+        <button v-if="this.$store.state.isVertical" type="button" class="btn btn-sm btn-menu" 
+          :class="{ open : isOpen}" @click="open" @blur="close">
           <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+          <ul class="dropdown-menu">
+            <li>
+              <button type="button" class="btn btn-sm btn-menu" @click="shiftInOutBox">
+                Dock to bottom
+              </button>
+            </li>
+            <li>
+              <button type="button" class="btn btn-sm btn-menu" @click="close">
+                Dock to right
+                <i class="fa fa-check" aria-hidden="true"></i>
+              </button>
+            </li>
+          </ul>
         </button>
       </div>
       <textarea class="textbox" id="test-input" rows="2" wrap="off"
@@ -27,8 +41,22 @@
         <a v-on:click="onCopyOutput" id="copy-output"> 
           <i class="fa fa-paperclip"/>
         </a>
-        <button v-if="!this.$store.state.isVertical" type="button" id="toggleVerticalPane" class="btn btn-sm btn-menu" @click="shiftInOutBox">
+        <button v-if="!this.$store.state.isVertical" type="button" class="btn btn-sm btn-menu" 
+          :class="{ open : isOpen}" @click="open" @blur="close">
           <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+          <ul class="dropdown-menu">
+            <li>
+              <button type="button" class="btn btn-sm btn-menu" @click="close">
+                Dock to bottom
+                <i class="fa fa-check" aria-hidden="true"></i>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="btn btn-sm btn-menu" @click="shiftInOutBox">
+                Dock to right
+              </button>
+            </li>
+          </ul>
         </button>
       </div>
       <pre id="output">{{this.$store.state.output}}</pre>
@@ -40,11 +68,11 @@
   import * as download from 'downloadjs'
   export default {
     name: 'inoutbox',
-    // data() {
-    //   return {
-    //     isVertical: false
-    //   }
-    // },
+    data() {
+      return {
+        isOpen: false
+      }
+    },
     mounted() {
       interact('#inoutbox')
         .resizable({
@@ -76,6 +104,12 @@
     methods: {
       shiftInOutBox() {
         this.$store.commit('shiftInOutBox')
+      },
+      open() {
+        this.isOpen = !this.isOpen
+      },
+      close() {
+        setTimeout(() => { this.isOpen=false },250 )
       },
       customInputChange(e) {
         this.$store.commit('changeCustomInput', e.target.value || e.target.result)
@@ -239,6 +273,17 @@
 
   i.fa:hover {
     cursor: pointer;
+  }
+
+  .open > .dropdown-menu {
+    display: list-item !important;
+    background-color: #202020;
+    font-size: 14px;
+    overflow: hidden;
+    top: 35px;
+    right: 25px;
+    width: 20%;
+    left: auto;
   }
 
   #uploadInputFile{
