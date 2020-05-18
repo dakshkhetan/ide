@@ -11,7 +11,7 @@
         </a>
         <button v-if="this.$store.state.isVertical" type="button" class="btn btn-sm btn-menu" 
           :class="{ open : isOpen}" @click="open" @blur="close">
-          <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+          <i class="fa fa-ellipsis-v" aria-hidden="true" style="font-size:14px"></i>
           <ul class="dropdown-menu">
             <li>
               <button type="button" class="btn btn-sm btn-menu" @click="shiftInOutBox">
@@ -41,9 +41,9 @@
         <a v-on:click="onCopyOutput" id="copy-output"> 
           <i class="fa fa-paperclip"/>
         </a>
-        <button v-if="!this.$store.state.isVertical" type="button" class="btn btn-sm btn-menu" 
+        <button v-if="!this.$store.state.isVertical" type="button" id="toggleVerticalPane" class="btn btn-sm btn-menu" 
           :class="{ open : isOpen}" @click="open" @blur="close">
-          <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+          <i class="fa fa-ellipsis-v" aria-hidden="true" style="font-size:14px"></i>
           <ul class="dropdown-menu">
             <li>
               <button type="button" class="btn btn-sm btn-menu" @click="close">
@@ -235,35 +235,46 @@
   }
 
   .verticalPane#inoutbox {
-    width: 40vw;
     height: calc(100vh - 90px);
+    width: 100vw;
+    position: relative;
     right: 0;
-    left: auto;
+    left: 5px;
+    top: calc(-100vh + 85px);
+    z-index: 9;
+    left: 5px;
   }
 
   .verticalPane #output, .verticalPane #test-input {
-    width: calc(40vw - 7px);
+    width: calc(40vw - 5px);
   }
 
   .verticalPane .panel-heading, .verticalPane .panel-input, .verticalPane .panel-output {
-    width: calc(40vw - 7px);
+    width: calc(40vw + 4px);
   }
 
   .verticalPane .panel-input, .verticalPane .panel-output {
     bottom: auto;
     top: 0;
-    right: 14px;
+    right: 0;
     height: 50% !important;
   }
 
   .verticalPane .panel-output {
-    top: calc(50vh - 44px);
+    top: auto;
+    bottom: 0;
   }
 
-   @media (max-width: 767px) {
+  @media (max-width: 877px) {
+    #toggleVerticalPane {
+      display: none;
+    }
+  }
+
+  @media (max-width: 767px) {
     .verticalPane .panel-heading, .verticalPane .panel-input, 
     .verticalPane .panel-output, .verticalPane #output, .verticalPane #test-input {
-      width: calc(40vw - 7px);
+      width: calc(40vw + 4px);
     }
 
     .verticalPane .panel-input, .verticalPane .panel-output {

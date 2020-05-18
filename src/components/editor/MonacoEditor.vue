@@ -1,5 +1,5 @@
 <template>
-  <pre id="editor"></pre>
+  <pre id="editor" :class="{ verticalPane : this.$store.state.isVertical}"></pre>
 </template>
 
 <script>
@@ -164,6 +164,9 @@
     margin: 0;
     border-radius: 0;
     padding-top: 35px;
+  }
+  .verticalPane#editor {
+    width: 60vw;
   }
   .inputarea {
     opacity: 0;
