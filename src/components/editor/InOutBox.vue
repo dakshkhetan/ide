@@ -1,5 +1,5 @@
 <template>
-  <div id="inoutbox" class="fsHide" v-bind:style="{ fontSize: this.$store.state.fontSize + 'px' }" v-show="this.$store.state.showInOutBox">
+  <div id="inoutbox" class="fsHide" :class="{ verticalPane : isVertical}" v-bind:style="{ fontSize: this.$store.state.fontSize + 'px' }" v-show="this.$store.state.showInOutBox">
     <div class="panel-input panel-default">
       <div class="panel-heading">
         <span>Input</span>
@@ -9,6 +9,9 @@
         <a v-on:click="onCopyInput" id="copy-input"> 
           <i class="fa fa-paperclip" />
         </a>
+        <button v-if="isVertical" type="button" id="toggleHorizontalPane" class="btn btn-sm btn-menu" @click="shiftInOutBox">
+          <i class="fa fa-th" aria-hidden="true"></i>
+        </button>
       </div>
       <textarea class="textbox" id="test-input" rows="2" wrap="off"
                 placeholder="Specify Input" :value="this.$store.state.customInput"
@@ -24,6 +27,9 @@
         <a v-on:click="onCopyOutput" id="copy-output"> 
           <i class="fa fa-paperclip"/>
         </a>
+        <button v-if="!isVertical" type="button" id="toggleVerticalPane" class="btn btn-sm btn-menu" @click="shiftInOutBox">
+          <i class="fa fa-th" aria-hidden="true"></i>
+        </button>
       </div>
       <pre id="output">{{this.$store.state.output}}</pre>
     </div>
@@ -34,6 +40,11 @@
   import * as download from 'downloadjs'
   export default {
     name: 'inoutbox',
+    data() {
+      return {
+        isVertical: false
+      }
+    },
     mounted() {
       interact('#inoutbox')
         .resizable({
@@ -63,6 +74,9 @@
       })
     },
     methods: {
+      shiftInOutBox() {
+        this.isVertical = !this.isVertical
+      },
       customInputChange(e) {
         this.$store.commit('changeCustomInput', e.target.value || e.target.result)
       },
@@ -183,6 +197,43 @@
       position: static;
       height: 50% !important;
       border-color: #202020;
+    }
+  }
+
+  .verticalPane#inoutbox {
+    width: 40vw;
+    height: calc(100vh - 90px);
+    right: 0;
+    left: auto;
+  }
+
+  .verticalPane #output, .verticalPane #test-input {
+    width: calc(40vw - 7px);
+  }
+
+  .verticalPane .panel-heading, .verticalPane .panel-input, .verticalPane .panel-output {
+    width: calc(40vw - 7px);
+  }
+
+  .verticalPane .panel-input, .verticalPane .panel-output {
+    bottom: auto;
+    top: 0;
+    right: 14px;
+    height: 50% !important;
+  }
+
+  .verticalPane .panel-output {
+    top: calc(50vh - 44px);
+  }
+
+   @media (max-width: 767px) {
+    .verticalPane .panel-heading, .verticalPane .panel-input, 
+    .verticalPane .panel-output, .verticalPane #output, .verticalPane #test-input {
+      width: calc(40vw - 7px);
+    }
+
+    .verticalPane .panel-input, .verticalPane .panel-output {
+      position: absolute;
     }
   }
 
