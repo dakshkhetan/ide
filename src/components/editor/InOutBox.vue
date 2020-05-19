@@ -1,5 +1,6 @@
 <template>
-  <div id="inoutbox" class="fsHide" :class="{ verticalPane : this.$store.state.isVertical}" v-bind:style="{ fontSize: this.$store.state.fontSize + 'px' }" v-show="this.$store.state.showInOutBox">
+  <div id="inoutbox" :class="{ verticalPane : this.$store.state.isVertical, resizable : !this.$store.state.isVertical}" 
+    class="fsHide" v-bind:style="{ fontSize: this.$store.state.fontSize + 'px' }" v-show="this.$store.state.showInOutBox">
     <div class="panel-input panel-default">
       <div class="panel-heading">
         <span>Input</span>
@@ -74,7 +75,7 @@
       }
     },
     mounted() {
-      interact('#inoutbox')
+      interact('#inoutbox.resizable')
         .resizable({
           edges: { top: true },
           restrictEdges: {
@@ -248,7 +249,7 @@
     }
 
     .verticalPane#inoutbox {
-      height: calc(100vh - 90px);
+      height: calc(100vh - 90px) !important;
       width: 100vw;
       position: relative;
       right: 0;
