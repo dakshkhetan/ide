@@ -222,6 +222,10 @@
     right: 14px;
   }
 
+  #toggleVerticalPane {
+    display: none;
+  }
+
    @media (max-width: 767px) {
     .panel-heading, .panel-input, .panel-output, #output, #test-input {
       width: calc(100vw - 14px);
@@ -234,51 +238,40 @@
     }
   }
 
-  .verticalPane#inoutbox {
-    height: calc(100vh - 90px);
-    width: 100vw;
-    position: relative;
-    right: 0;
-    left: 5px;
-    top: calc(-100vh + 85px);
-    z-index: 9;
-    left: 5px;
-  }
-
-  .verticalPane #output, .verticalPane #test-input {
-    width: calc(40vw - 5px);
-  }
-
-  .verticalPane .panel-heading, .verticalPane .panel-input, .verticalPane .panel-output {
-    width: calc(40vw + 4px);
-  }
-
-  .verticalPane .panel-input, .verticalPane .panel-output {
-    bottom: auto;
-    top: 0;
-    right: 0;
-    height: 50% !important;
-  }
-
-  .verticalPane .panel-output {
-    top: auto;
-    bottom: 0;
-  }
-
-  @media (max-width: 877px) {
+  @media (min-width: 767px) {
     #toggleVerticalPane {
-      display: none;
+      display: inline-block;
     }
-  }
 
-  @media (max-width: 767px) {
-    .verticalPane .panel-heading, .verticalPane .panel-input, 
-    .verticalPane .panel-output, .verticalPane #output, .verticalPane #test-input {
+    .verticalPane#inoutbox {
+      height: calc(100vh - 90px);
+      width: 100vw;
+      position: relative;
+      right: 0;
+      left: 5px;
+      top: calc(-100vh + 85px);
+      z-index: 9;
+      left: 5px;
+    }
+
+    .verticalPane #output, .verticalPane #test-input {
+      width: calc(40vw - 5px);
+    }
+
+    .verticalPane .panel-heading, .verticalPane .panel-input, .verticalPane .panel-output {
       width: calc(40vw + 4px);
     }
 
     .verticalPane .panel-input, .verticalPane .panel-output {
-      position: absolute;
+      bottom: auto;
+      top: 0;
+      right: 0;
+      height: 50% !important;
+    }
+
+    .verticalPane .panel-output {
+      top: auto;
+      bottom: 0;
     }
   }
 
