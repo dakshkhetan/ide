@@ -9,7 +9,7 @@
         <a v-on:click="onCopyInput" id="copy-input"> 
           <i class="fa fa-paperclip" />
         </a>
-        <button v-if="this.$store.state.isVertical" type="button" class="btn btn-sm btn-menu" 
+        <button v-if="this.$store.state.isVertical" type="button" id="toggleHorizontalPane" class="btn btn-sm btn-menu" 
           :class="{ open : isOpen}" @click="open" @blur="close">
           <i class="fa fa-ellipsis-v" aria-hidden="true" style="font-size:14px"></i>
           <ul class="dropdown-menu">
@@ -227,6 +227,10 @@
   }
 
    @media (max-width: 767px) {
+    #toggleHorizontalPane {
+      display: none;
+    }
+
     .panel-heading, .panel-input, .panel-output, #output, #test-input {
       width: calc(100vw - 14px);
     }
