@@ -47,7 +47,9 @@
 <style scoped>
   .open > .dropdown-menu {
     display: list-item !important;
-    color: #262626;
+    color: #fff;
+    background-color: #202020;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
     font-size: 14px;
     overflow: hidden;
   }
@@ -58,6 +60,6 @@
 
   .open > .dropdown-menu > li:hover {
     cursor: pointer;
-    background-color: #f5f5f5;
+    color: #e31d3b !important;
   }
 </style>
