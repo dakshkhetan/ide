@@ -192,7 +192,7 @@ export default new Vuex.Store({
               langs[lang.lang_slug] = lang;
               return langs;
             }, {})
-          );  
+          );
 
           return data;
         }),
