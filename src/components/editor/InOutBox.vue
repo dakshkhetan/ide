@@ -209,7 +209,7 @@
     padding: 8px 15px;
     background: #272727;
     color: #fff;
-  }
+  }  
 
   .panel-input, .panel-output {
     position: absolute;
