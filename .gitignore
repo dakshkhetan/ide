@@ -3,3 +3,4 @@ node_modules
 dist/
 .travis.yml
 deploy.sh
+.DS_Store

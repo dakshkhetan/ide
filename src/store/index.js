@@ -214,7 +214,30 @@ export default new Vuex.Store({
             return data;
           })
       ]).then(([langs, code]) => {
-        commit("changeLanguage", code ? code.language : "cpp");
+        if (state.route.name === "lang") {
+          const codeLang = state.route.params.lang;
+          const allLangs = {
+            "c": "c",
+            "cpp": "cpp",
+            "csharp": "csharp",
+            "java": "java8",
+            "python3": "py3",
+            "py3": "py3",
+            "python": "py2",
+            "py2": "py2",
+            "js": "jsv",
+            "javascript": "jsv",
+            "ruby": "ruby",
+            "rust": "rust",
+            "go": "golang",
+            "kotlin": "kotlin"
+          };
+          if (codeLang in allLangs) {
+            commit("changeLanguage", allLangs[codeLang]);
+          }
+        } else {
+          commit("changeLanguage", code ? code.language : "cpp");
+        }
         if (code.code) {
           commit("setCode", code.code);
         }

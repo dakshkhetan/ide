@@ -22,6 +22,7 @@ const router = new Router({
   mode: 'history',
   routes: [
     { name: 'root', path: '/', component: Editor },
+    { name: 'lang', path: '/:lang', component: Editor },
     { name: 'saved', path: '/s/:id', component: Editor },
     { name: 'join', path: '/j/:ref', component: Editor, props: true },
     { name: 'login', path: '/callback', component: Login },

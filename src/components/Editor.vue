@@ -26,7 +26,6 @@
     },
     created () {
       this.$store.dispatch('loadDataFromServer')
-
     },
     mounted () {
       const ref = this.$route.query.ref || this.$attrs.ref
@@ -36,6 +35,7 @@
           this.$router.push('/')
         })
       }
+      this.$router.replace('/')
       this.checkForFork()
     },
     methods: {
@@ -43,7 +43,7 @@
         this.$store.commit('setCodeTitle', e.target.value)
       },
       checkForFork(){
-        if(localStorage.getItem('forking')==="true") {
+        if (localStorage.getItem('forking') === "true") {
           localStorage.removeItem('forking')
           this.$store.commit('changeLanguage', localStorage.forkedLanguage)
           this.$store.commit('uploadCode', localStorage.forkedCode)
